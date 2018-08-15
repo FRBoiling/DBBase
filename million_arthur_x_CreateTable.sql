@@ -10,27 +10,19 @@ Target Server Type    : MYSQL
 Target Server Version : 50628
 File Encoding         : 65001
 
-Date: 2018-08-11 18:55:12
+Date: 2018-08-15 17:00:19
 */
 
 SET FOREIGN_KEY_CHECKS=0;
 
 -- ----------------------------
--- Table structure for account
+-- Table structure for account_role_list
 -- ----------------------------
-DROP TABLE IF EXISTS `account`;
-CREATE TABLE `account` (
-  `uid` int(11) NOT NULL AUTO_INCREMENT,
-  `username` varchar(48) NOT NULL DEFAULT 'default_user',
-  `password` varchar(32) NOT NULL DEFAULT '',
-  `channel_name` varchar(64) NOT NULL DEFAULT 'default_channel',
-  `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `device_id` varchar(128) NOT NULL DEFAULT 'default_device',
-  `register_id` varchar(32) NOT NULL DEFAULT '',
-  `role_uids` varchar(64) NOT NULL DEFAULT '',
-  PRIMARY KEY (`uid`),
-  UNIQUE KEY `uniq_username_channelname` (`username`,`channel_name`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+DROP TABLE IF EXISTS `account_role_list`;
+CREATE TABLE `account_role_list` (
+  `role_name` int(11) DEFAULT NULL,
+  `role_uid` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for role
@@ -39,10 +31,12 @@ DROP TABLE IF EXISTS `role`;
 CREATE TABLE `role` (
   `uid` int(11) NOT NULL DEFAULT '0',
   `role_name` varchar(64) NOT NULL DEFAULT 'arthur',
-  `group_id` tinyint(4) NOT NULL DEFAULT '1',
+  `area_id` tinyint(4) NOT NULL DEFAULT '1',
+  `face_icon` tinyint(4) NOT NULL DEFAULT '0',
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `username` varchar(48) NOT NULL DEFAULT 'default_user',
   `channel_name` varchar(64) NOT NULL DEFAULT 'default_channel',
   PRIMARY KEY (`uid`),
-  UNIQUE KEY `uniq_rolename` (`role_name`) USING BTREE
+  UNIQUE KEY `uniq_rolename` (`role_name`) USING BTREE,
+  KEY `idx_username` (`username`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
